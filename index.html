@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Name — PhD Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── Tokens ──────────────────────────────────────────────────── */
+    :root {
+      --ink:        #1a1a2e;
+      --ink-soft:   #4a4a6a;
+      --ink-muted:  #8888aa;
+      --paper:      #fafaf8;
+      --accent:     #2d6a9f;
+      --accent-warm:#c8773a;
+      --rule:       #e2e2ec;
+      --card-bg:    #ffffff;
+      --mono:       'JetBrains Mono', monospace;
+      --serif:      'DM Serif Display', Georgia, serif;
+      --sans:       'Inter', system-ui, sans-serif;
+    }
+
+    /* ── Reset ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background:  var(--paper);
+      color:       var(--ink);
+      font-size:   16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ── Layout ──────────────────────────────────────────────────── */
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250,250,248,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      z-index: 100;
+      padding: 0.9rem 0;
+    }
+    nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-name {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── Hero / Profile ──────────────────────────────────────────── */
+    #about {
+      padding: 5rem 0 4rem;
+    }
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .profile-photo-wrap {
+      position: relative;
+    }
+    .profile-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--rule);
+      /* Placeholder gradient if no photo */
+      background: linear-gradient(135deg, #2d6a9f22, #c8773a22);
+    }
+    .photo-placeholder {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2d6a9f33, #c8773a33);
+      border: 3px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: var(--accent);
+    }
+    .profile-info h1 {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 0.4rem;
+    }
+    .profile-info .role {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .profile-info p {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 1.5rem;
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      color: var(--ink-soft);
+      background: var(--card-bg);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* ── Section headers ─────────────────────────────────────────── */
+    .section {
+      padding: 4rem 0;
+      border-top: 1px solid var(--rule);
+    }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-warm);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      color: var(--ink);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Research interests ──────────────────────────────────────── */
+    .interests-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+    .interest-card {
+      background: var(--card-bg);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 1.2rem 1.4rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .interest-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 12px rgba(45,106,159,0.08);
+    }
+    .interest-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .interest-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+    }
+    .interest-card p {
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+
+    /* ── Ongoing research ────────────────────────────────────────── */
+    .research-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .research-item {
+      display: grid;
+      grid-template-columns: 4px 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .research-bar {
+      width: 4px;
+      height: 100%;
+      min-height: 60px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-warm));
+      border-radius: 2px;
+      margin-top: 4px;
+    }
+    .research-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: var(--ink);
+    }
+    .research-content p {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      margin-bottom: 0.5rem;
+    }
+    .research-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      background: #2d6a9f11;
+      color: var(--accent);
+      border-radius: 3px;
+      letter-spacing: 0.02em;
+    }
+    .status-badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .status-active {
+      background: #2d6a9f18;
+      color: var(--accent);
+    }
+    .status-submitted {
+      background: #c8773a18;
+      color: var(--accent-warm);
+    }
+
+    /* ── Publications ────────────────────────────────────────────── */
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .pub-item {
+      padding: 1.4rem 0;
+      border-bottom: 1px solid var(--rule);
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 1.2rem;
+      align-items: start;
+    }
+    .pub-year {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--ink-muted);
+      padding-top: 0.2rem;
+    }
+    .pub-details h3 {
+      font-size: 0.97rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.45;
+      margin-bottom: 0.35rem;
+    }
+    .pub-authors {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      margin-bottom: 0.25rem;
+    }
+    .pub-authors strong {
+      color: var(--ink);
+      font-weight: 600;
+    }
+    .pub-venue {
+      font-size: 0.83rem;
+      color: var(--ink-muted);
+      font-style: italic;
+      margin-bottom: 0.6rem;
+    }
+    .pub-links {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .pub-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      padding: 0.2rem 0.6rem;
+      border: 1px solid var(--rule);
+      border-radius: 3px;
+      color: var(--ink-soft);
+      transition: all 0.15s;
+    }
+    .pub-link:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+      text-decoration: none;
+    }
+
+    /* ── Education / Timeline ────────────────────────────────────── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--rule);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.7rem;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+    .timeline-period {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+      margin-bottom: 0.2rem;
+    }
+    .timeline-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .timeline-item p {
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+    }
+
+    /* ── Footer ──────────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--rule);
+      padding: 2rem 0;
+      text-align: center;
+    }
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 640px) {
+      .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .photo-placeholder, .profile-photo {
+        width: 120px;
+        height: 120px;
+      }
+      .profile-info h1 { font-size: 1.9rem; }
+      .nav-links { gap: 1.2rem; }
+      .pub-item {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Navigation ──────────────────────────────────────────────── -->
+  <nav>
+    <div class="container">
+      <span class="nav-name">your.name@university.edu</span>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#publications">Publications</a></li>
+        <li><a href="#education">Education</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ── About / Hero ────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <div class="profile-grid">
+
+        <!-- Replace the div below with an <img> tag once you have a photo -->
+        <div class="profile-photo-wrap">
+          <div class="photo-placeholder">👤</div>
+          <!--
+          <img class="profile-photo"
+               src="photo.jpg"
+               alt="Your Name"/>
+          -->
+        </div>
+
+        <div class="profile-info">
+          <h1>Your Full Name</h1>
+          <p class="role">PhD Researcher · Department of Computer Science · University Name</p>
+          <p>
+            I am a PhD student advised by
+            <a href="#">Prof. Advisor Name</a> at University Name.
+            My research focuses on medical image analysis, deep learning,
+            and AI-assisted diagnosis — specifically tuberculosis detection
+            and radiology report generation from chest X-rays.
+          </p>
+          <p>
+            I am interested in building clinically meaningful AI systems
+            that can assist radiologists in low-resource settings where
+            TB burden is highest.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:your.email@university.edu">✉ Email</a>
+            <a href="https://scholar.google.com" target="_blank">Scholar</a>
+            <a href="https://github.com/yourusername" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+            <a href="cv.pdf" target="_blank">CV / Resume</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Research Interests ───────────────────────────────────────── -->
+  <section class="section">
+    <div class="container">
+      <p class="section-label">Focus Areas</p>
+      <h2 class="section-title">Research Interests</h2>
+      <div class="interests-grid">
+        <div class="interest-card">
+          <div class="interest-icon">🫁</div>
+          <h3>Medical Image Analysis</h3>
+          <p>Chest X-ray interpretation, TB detection, and automated lesion localization.</p>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon">🤖</div>
+          <h3>Vision-Language Models</h3>
+          <p>Multimodal models for radiology report generation and clinical NLP.</p>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon">📊</div>
+          <h3>Deep Learning</h3>
+          <p>Object detection, segmentation, and foundation models for healthcare.</p>
+        </div>
+        <div class="interest-card">
+          <div class="interest-icon">🌍</div>
+          <h3>Global Health AI</h3>
+          <p>AI tools for TB screening in low-resource and high-burden settings.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Ongoing Research ─────────────────────────────────────────── -->
+  <section id="research" class="section">
+    <div class="container">
+      <p class="section-label">Current Work</p>
+      <h2 class="section-title">Ongoing Research</h2>
+      <div class="research-list">
+
+        <div class="research-item">
+          <div class="research-bar"></div>
+          <div class="research-content">
+            <span class="status-badge status-active">● Active</span>
+            <h3>Automated Radiology Report Generation for Tuberculosis CXRs</h3>
+            <p>
+              Developing a pipeline that combines bounding box annotations from
+              radiologists with large vision-language models (GPT-4o, CheXagent,
+              LLaVA-Med) to generate MIMIC-CXR style radiology reports for
+              TB-positive chest X-rays from the VinDr and Montgomery datasets.
+            </p>
+            <div class="research-tags">
+              <span class="tag">VinDr</span>
+              <span class="tag">GPT-4o</span>
+              <span class="tag">CheXagent</span>
+              <span class="tag">LLaVA-Med</span>
+              <span class="tag">Report Generation</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-bar"></div>
+          <div class="research-content">
+            <span class="status-badge status-active">● Active</span>
+            <h3>Tuberculosis Detection and Localization in Chest X-rays</h3>
+            <p>
+              Investigating object detection and weakly supervised localization
+              methods for TB lesion detection across multiple datasets including
+              TBX11K, Montgomery County, and Shenzhen Hospital CXR sets.
+            </p>
+            <div class="research-tags">
+              <span class="tag">TBX11K</span>
+              <span class="tag">Montgomery</span>
+              <span class="tag">Shenzhen</span>
+              <span class="tag">Object Detection</span>
+              <span class="tag">Localization</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-bar"></div>
+          <div class="research-content">
+            <span class="status-badge status-submitted">◆ Under Review</span>
+            <h3>Evaluation of Vision-Language Models for Clinical Radiology</h3>
+            <p>
+              Benchmarking state-of-the-art vision-language models on radiology
+              report quality using ROUGE, BLEU, and GREEN metrics against
+              GPT-4o generated ground truth reports.
+            </p>
+            <div class="research-tags">
+              <span class="tag">ROUGE</span>
+              <span class="tag">BLEU</span>
+              <span class="tag">GREEN Score</span>
+              <span class="tag">Benchmarking</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Publications ─────────────────────────────────────────────── -->
+  <section id="publications" class="section">
+    <div class="container">
+      <p class="section-label">Peer-reviewed Work</p>
+      <h2 class="section-title">Publications</h2>
+      <div class="pub-list">
+
+        <!-- Publication 1 -->
+        <div class="pub-item">
+          <div class="pub-year">2025</div>
+          <div class="pub-details">
+            <h3>Title of Your Most Recent Paper Goes Here</h3>
+            <p class="pub-authors">
+              <strong>Your Name</strong>, Co-author One, Co-author Two, Advisor Name
+            </p>
+            <p class="pub-venue">Conference / Journal Name, 2025</p>
+            <div class="pub-links">
+              <a class="pub-link" href="#">PDF</a>
+              <a class="pub-link" href="#">Code</a>
+              <a class="pub-link" href="#">arXiv</a>
+              <a class="pub-link" href="#">BibTeX</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 2 -->
+        <div class="pub-item">
+          <div class="pub-year">2024</div>
+          <div class="pub-details">
+            <h3>Title of Second Paper — Deep Learning for Tuberculosis Detection</h3>
+            <p class="pub-authors">
+              <strong>Your Name</strong>, Co-author One, Advisor Name
+            </p>
+            <p class="pub-venue">Medical Image Analysis or MICCAI, 2024</p>
+            <div class="pub-links">
+              <a class="pub-link" href="#">PDF</a>
+              <a class="pub-link" href="#">Code</a>
+              <a class="pub-link" href="#">DOI</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Publication 3 -->
+        <div class="pub-item">
+          <div class="pub-year">2023</div>
+          <div class="pub-details">
+            <h3>Title of Earlier Paper or Workshop Paper</h3>
+            <p class="pub-authors">
+              <strong>Your Name</strong>, Advisor Name
+            </p>
+            <p class="pub-venue">Workshop at NeurIPS / CVPR / ICCV, 2023</p>
+            <div class="pub-links">
+              <a class="pub-link" href="#">PDF</a>
+              <a class="pub-link" href="#">Poster</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Education ────────────────────────────────────────────────── -->
+  <section id="education" class="section">
+    <div class="container">
+      <p class="section-label">Background</p>
+      <h2 class="section-title">Education</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <p class="timeline-period">2022 — Present</p>
+          <h3>PhD in Computer Science</h3>
+          <p>University Name, City, Country</p>
+          <p>Thesis: AI-assisted Tuberculosis Detection and Report Generation from Chest X-rays</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="timeline-period">2019 — 2021</p>
+          <h3>M.Tech / M.S. in Computer Science</h3>
+          <p>University Name, City, Country</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="timeline-period">2015 — 2019</p>
+          <h3>B.Tech in Computer Science / Engineering</h3>
+          <p>University Name, City, Country</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ───────────────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <p>© 2025 Your Name · Last updated June 2025 ·
+        <a href="mailto:your.email@university.edu">your.email@university.edu</a>
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>
